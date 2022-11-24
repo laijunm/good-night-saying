@@ -1,27 +1,59 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import NightView from '../views/Night/NightView.vue'
+import RecordSayingView from '../views/RecordSaying/RecordSayingView.vue'
+import MusicView from '../views/Music/MusicView.vue'
+import DynamicView from '../views/DynamicView/DynamicView.vue'
+import MyView from '../views/MyView/MyView.vue'
+import loginView from '../views/loginView.vue'
+
 
 Vue.use(VueRouter)
+
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'night',
+    component: NightView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/recordsaying',
+    name: 'recordsaying',
+    component: RecordSayingView
+  },
+  {
+    path: '/music',
+    name: 'music',
+    component: MusicView
+  },
+  {
+    path: '/dynamic',
+    name: 'dynamic',
+    component: DynamicView,
+    children: [
+      {
+        path: 'dynamic-details',
+        name: 'dynamic-details',
+        component: () => import("../views/DynamicView/DynamicDetails.vue")
+      }
+    ]
+  },
+  {
+    path: '/my',
+    name: 'my',
+    component: MyView,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: loginView
   }
+
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
